@@ -3,40 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Valentine's Day</title>
     <style>
-        #noButton {
-            position: fixed;
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+            overflow: hidden;
+            position: relative;
         }
-        #messageBox {
-            position: fixed;
-            top: 50%;
+        h1 {
+            font-family: "Arial", sans-serif;
+            color: #d80000;
+            animation: textAnimation 2s ease forwards;
+        }
+        @keyframes textAnimation {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .yes {
+            background-color: #ff4d4d;
+            color: white;
+        }
+        .no {
+            background-color: #4dff88;
+            color: white;
+            position: absolute;
+        }
+        .heart {
+            position: absolute;
+            top: 0;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            border: 2px solid black;
-            padding: 1rem;
-            z-index: 999;
+            width: 100px;
+            height: 100px;
+            background: url('https://example.com/heart.png') no-repeat center center;
+            background-size: contain;
+            animation: falling 5s linear infinite;
+        }
+        @keyframes falling {
+            0% { top: -100px; }
+            100% { top: 100vh; }
         }
     </style>
 </head>
 <body>
-    <div id="messageBox">
-        <p>Do you want to proceed?</p>
-        <button id="noButton" onclick="noClicked()">No</button>
-        <button onclick="yesClicked()">Yes</button>
-    </div>
-
+    <h1>Will you be my forever Valentine? I Love You Muddu ❤️</h1>
+    <button class="button yes">Yes</button>
+    <button class="button no">No</button>
+    <div class="heart"></div>
     <script>
-        function noClicked() {
-            const button = document.getElementById('noButton');
-            button.style.top = Math.random() * (window.innerHeight - button.offsetHeight) + 'px';
-            button.style.left = Math.random() * (window.innerWidth - button.offsetWidth) + 'px';
-        }
+        const noButton = document.querySelector('.no');
+        noButton.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+            noButton.style.transform = `translate(${x}px, ${y}px)`;
+        });
 
-        function yesClicked() {
-            // Your logic for yes clicked
-        }
+        // Heart rain animation
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }, 1000);
     </script>
 </body>
 </html>
